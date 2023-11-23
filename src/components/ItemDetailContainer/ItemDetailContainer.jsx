@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import ItemCountComponent from "../ItemCountComponent/ItemCountComponent";
 
 export const ItemDetailContainer = ({ product }) => {
   return (
@@ -18,6 +19,7 @@ export const ItemDetailContainer = ({ product }) => {
           <Card.Title>{product.title}</Card.Title>
           <Card.Text>{product.description}</Card.Text>
         </Card.Body>
+        <ItemCountComponent />
       </Card>
     </div>
   );
