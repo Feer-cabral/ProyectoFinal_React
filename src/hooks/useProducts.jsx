@@ -7,10 +7,22 @@ export const useAllProducts = (limit) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    getAllProducts(limit)
-      .then((res) => setProducts(res.data.products))
-      .catch((err) => setError(true))
-      .finally(() => setLoading(false));
-  }, []);
+    const fetchData = async () => {
+      try {
+        const res = await getAllProducts(limit);
+        setProducts(res.data.products);
+      } catch (err) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const delay = 3000;
+    const timeOut = setTimeout(fetchData, delay);
+
+    return () => clearTimeout(timeOut);
+  }, [limit]);
+
   return { products, loading, error };
 };
