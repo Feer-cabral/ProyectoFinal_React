@@ -1,21 +1,17 @@
-import Category from "../pages/Category";
-import Home from "../pages/Home";
-import Item from "../pages/Item";
-
-import { NavBarComponent } from "../components/NavBarComponent";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Category, Home, Item } from "../pages";
+import { NavBarComponent } from "../components";
+import { propTypes } from "react-bootstrap/esm/Image";
 
-const MainRouter = () => {
+export const MainRouter = () => {
   return (
     <Router>
       <NavBarComponent />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:categoryId" element={<Category />} />
-        <Route path="/item/:id" element={<Item />} />
+        <Route path="/item/:productId" element={<Item />} />
       </Routes>
     </Router>
   );
 };
-
-export default MainRouter;

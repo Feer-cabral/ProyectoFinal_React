@@ -1,27 +1,16 @@
 import React from "react";
-import axios from "axios";
 
-import { ItemListContainer } from "../components/ItemListContainer";
-import { useEffect, useState } from "react";
+import { ItemListContainer, LoaderComponent } from "../components";
 import { useParams } from "react-router-dom";
 
-const Category = () => {
-  const [products, setProducts] = useState([]);
-
+export const Category = () => {
   const { categoryId } = useParams();
 
-  useEffect(() => {
-    axios
-      .get(`https://dummyjson.com/products/category/${categoryId}`)
-      .then((res) => {
-        setProducts(res.data.products);
-      })
-      .catch((err) => {
-        console.err(err);
-      });
-  }, [categoryId]);
+  const { products, loading, error } = useProductsByCategory(categoryId);
 
-  return <ItemListContainer products={products} />;
+  return loading ? (
+    <LoaderComponent />
+  ) : (
+    <ItemListContainer products={products} />
+  );
 };
-
-export default Category;

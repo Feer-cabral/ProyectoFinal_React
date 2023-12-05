@@ -1,42 +1,20 @@
 import React from "react";
-import axios from "axios";
+import Card from "react-bootstrap/Card";
 
-import { ItemDetailContainer } from "../components/ItemDetailContainer";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { LoaderComponent } from "../components/LoaderComponent";
+import { useSingleProduct } from "../hooks/useProducts";
 
-const Item = () => {
-  const [product, setProduct] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+export const Item = () => {
+  const { productId } = useParams();
 
-  useEffect(() => {
-    const timeOutId = setTimeout(() => {
-      axios
-        .get(`https://dummyjson.com/products/${id}`)
-        .then((res) => {
-          setProduct(res.data);
-        })
-        .catch((err) => {
-          console.err(err);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }, 1000);
-    return () => clearTimeout(timeOutId);
-  }, [id]);
-
+  const { product, loading, error } = useSingleProduct("products", productId);
   return (
-    <div>
-      {loading ? (
-        <LoaderComponent />
-      ) : (
-        <ItemDetailContainer product={product} />
-      )}
-    </div>
+    <Card key={product.id} style={{ width: "18rem", margin: 20 }}>
+      <Card.Img variant="top" src={product.thumbnail} />
+      <Card.Body>
+        <Card.Title>{product.title}</Card.Title>
+        <Card.Text>{product.description}</Card.Text>
+      </Card.Body>
+    </Card>
   );
 };
-
-export default Item;

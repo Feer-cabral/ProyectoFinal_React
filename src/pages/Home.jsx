@@ -1,11 +1,10 @@
 import React from "react";
 
-import { ItemListContainer } from "../components/ItemListContainer";
-import { LoaderComponent } from "../components/LoaderComponent";
+import { LoaderComponent, ItemListContainer } from "../components";
 import { useAllProducts } from "../hooks/useProducts";
 
-const Home = () => {
-  const { products, loading, error } = useAllProducts(15);
+export const Home = () => {
+  const { products, loading, error } = useAllProducts("products");
 
   return (
     <div>
@@ -19,5 +18,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

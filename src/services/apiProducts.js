@@ -3,3 +3,11 @@ import axios from "axios";
 export function getAllProducts(limit = 15) {
   return axios.get(`https://dummyjson.com/products/?limit=${limit}`);
 }
+
+export function getSingleProducts(id = 1) {
+  return axios.get(`https://dummyjson.com/products/${id}`);
+}
+
+export function getProductsByCategory(categoryId) {
+  return axios.get(`https://dummyjson.com/products/category/${categoryId}`);
+}

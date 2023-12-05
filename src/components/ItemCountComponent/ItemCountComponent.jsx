@@ -25,7 +25,7 @@ const ItemCountComponent = () => {
   return (
     <div>
       <Button onClick={handleAdd}>Añadir</Button>
-      <input type="text" value={count} />
+      <input type="number" value={count} />
       <Button onClick={handleRemove}>Quitar</Button>
       <Button onClick={handleClean}>Limpiar</Button>
     </div>
