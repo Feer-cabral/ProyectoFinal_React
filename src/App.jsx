@@ -4,7 +4,7 @@ import "./index.css";
 import { MainRouter } from "./router/MainRouter";
 import { CartProvider } from "./context";
 
-function App() {
+const App = () => {
   return (
     <CartProvider>
       <div>
@@ -12,6 +12,6 @@ function App() {
       </div>
     </CartProvider>
   );
-}
+};
 
 export default App;

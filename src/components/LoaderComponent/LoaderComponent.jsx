@@ -1,4 +1,3 @@
-import React from "react";
 import { trefoil } from "ldrs";
 
 export const LoaderComponent = () => {

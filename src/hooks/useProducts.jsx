@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import {
-  getAllProducts,
-  getSingleProducts,
-  getProductsByCategory,
-} from "../services";
-import {
   collection,
   getDocs,
   getFirestore,
   doc,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
 
 // Llamar a todos los productos con el limite establecido
@@ -24,12 +21,14 @@ export const useAllProducts = (collectionName) => {
     const productsCollection = collection(db, collectionName);
 
     getDocs(productsCollection)
-      .then((snapshot) => {
-        setProducts(
-          snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
+      .then((res) => {
+        const data = res.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProducts(data);
       })
-      .catch((err) => setError(true))
+      .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
 
@@ -48,10 +47,10 @@ export const useSingleProduct = (collectionName, id) => {
     const singleProduct = doc(db, collectionName, id);
 
     getDoc(singleProduct)
-      .then((snapshot) => {
-        setProduct({ id: snapshot.id, ...snapshot.data() });
+      .then((res) => {
+        setProduct({ id: res.id, ...res.data() });
       })
-      .catch((err) => setError(true))
+      .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
 
@@ -59,15 +58,27 @@ export const useSingleProduct = (collectionName, id) => {
 };
 
 // Filtrar productos por categoria
-export const useProductByCategory = (categoryId) => {
+export const useProductByCategory = (collectionName, categoryId) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    getProductsByCategory(categoryId)
-      .then((res) => setProducts(res.data.products))
-      .catch((err) => setError(true))
+    const db = getFirestore();
+
+    const categoryProduct = collection(db, collectionName);
+
+    const categoryQuery = query(
+      categoryProduct,
+      where("category", "==", categoryId)
+    );
+
+    getDocs(categoryQuery)
+      .then((res) => {
+        const data = res.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setProducts(data);
+      })
+      .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, [categoryId]);
 

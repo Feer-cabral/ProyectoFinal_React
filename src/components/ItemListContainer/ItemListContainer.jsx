@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const ItemListContainer = ({ products }) => {
@@ -15,15 +15,23 @@ export const ItemListContainer = ({ products }) => {
     >
       {products.map((product) => {
         return (
-          <Card key={product.id} style={{ width: "15vw", margin: 20 }}>
-            <Link to={`/item/${product.id}`}>
-              <Card.Img variant="top" src={product.thumbnail} />
-            </Link>
-
+          <Card key={product.id} style={{ width: "15vw", margin: 25 }}>
+            <Card.Img variant="top" src={product.thumbnail} />
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
-              <Card.Text>{product.description}</Card.Text>
             </Card.Body>
+            <Link to={`/item/${product.id}`}>
+              <Button
+                style={{
+                  backgroundColor: "black",
+                  marginLeft: "30px",
+                  marginBottom: "10px",
+                  border: "none",
+                }}
+              >
+                Ver mas detalles
+              </Button>
+            </Link>
           </Card>
         );
       })}

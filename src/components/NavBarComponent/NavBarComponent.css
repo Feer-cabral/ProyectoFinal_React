@@ -1,0 +1,10 @@
+.NavBarStyles {
+  background-image: linear-gradient(
+    to right,
+    #ffffff,
+    #e4e4e4,
+    #c9c9c9,
+    #aeaeae,
+    #959595
+  );
+}

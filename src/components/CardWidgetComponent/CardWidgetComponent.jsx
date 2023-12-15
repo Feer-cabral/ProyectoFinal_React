@@ -1,10 +1,11 @@
+import React from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../context";
 
 const CardWidgetComponent = () => {
-  const { cantidadItems } = useContext(CartContext);
+  const { cantidadItems } = React.useContext(CartContext);
 
   const iconStyles = {
     fontSize: "1.3rem",

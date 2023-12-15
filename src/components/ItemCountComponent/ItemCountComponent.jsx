@@ -1,35 +1,66 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
-import { CartContext } from "../../context/CartContext";
+import { AddItemButton } from "../AddItemButton";
 
-const ItemCountComponent = () => {
-  const { cantidadItems, setCantidadItems } = useContext(CartContext);
-
-  const [count, setCount] = React.useState(0);
+export const ItemCountComponent = () => {
+  const [count, setCount] = React.useState(1);
 
   const handleAdd = () => {
     setCount(count + 1);
-    setCantidadItems(cantidadItems + 1);
   };
 
   const handleRemove = () => {
-    setCount(count - 1);
-    setCantidadItems(cantidadItems - 1);
+    if (count > 1) {
+      setCount(count - 1);
+    }
   };
 
   const handleClean = () => {
-    setCount(0);
-    setCantidadItems(0);
+    setCount(1);
   };
 
   return (
     <div>
-      <Button onClick={handleAdd}>Añadir</Button>
-      <input type="number" value={count} />
-      <Button onClick={handleRemove}>Quitar</Button>
-      <Button onClick={handleClean}>Limpiar</Button>
+      <div>
+        <input
+          type="number"
+          value={count}
+          style={{
+            color: "white",
+            backgroundColor: "maroon",
+            border: "2px solid white",
+            borderRadius: "10px",
+            margin: 10,
+            marginLeft: 60,
+          }}
+          disabled
+        />
+      </div>
+      <div style={{ display: "flex" }}>
+        <Button
+          onClick={handleAdd}
+          style={{
+            margin: 10,
+            color: "red",
+            backgroundColor: "lightgrey",
+            border: "none",
+          }}
+        >
+          Añadir
+        </Button>
+        <AddItemButton count={count} handleClean={handleClean} />
+        <Button
+          onClick={handleRemove}
+          style={{
+            margin: 10,
+            color: "red",
+            backgroundColor: "lightgrey",
+            border: "none",
+          }}
+        >
+          Quitar
+        </Button>
+      </div>
     </div>
   );
 };
-
-export default ItemCountComponent;

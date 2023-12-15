@@ -2,53 +2,67 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
 import CardWidget from "../CardWidgetComponent/CardWidgetComponent";
 
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
+import "./NavBarComponent.css";
 
 export const NavBarComponent = () => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("https://dummyjson.com/products/categories")
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => {
-        console.err(err);
-      });
-  }, []);
-
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="NavBarStyles">
       <Container>
-        <Navbar.Brand>
-          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
-            Tienda River
-          </Link>
+        <Navbar.Brand
+          href="/"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          Tienda River
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Inicio</Nav.Link>
-            <Nav.Link href="#link">Productos</Nav.Link>
+            <Nav.Link href="/">Inicio</Nav.Link>
             <NavDropdown title="Categorias" id="basic-nav-dropdown">
-              {categories.map((category, index) => {
-                return (
-                  <NavDropdown.Item key={index}>
-                    <Link
-                      to={`/category/${category}`}
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      {category}
-                    </Link>
-                  </NavDropdown.Item>
-                );
-              })}
+              <NavDropdown.Item href="#action/3.1">
+                <Link
+                  to={"/category/camisetas"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Camisetas
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <Link
+                  to={"/category/shorts"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Shorts
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <Link
+                  to={"/category/buzos"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Buzos
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <Link
+                  to={"/category/pantalones"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Pantalones
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <Link
+                  to={"/category/zapatillas"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Zapatillas
+                </Link>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <CardWidget />
